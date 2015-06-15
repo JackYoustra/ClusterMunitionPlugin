@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.TNTPrimed;
@@ -27,7 +25,6 @@ public class ArrowListener implements Listener {
 				ArrayList<TNTPrimed> tntList = new ArrayList<>(1);
 				Arrow targetArrow = (Arrow)fired;
 				World arrowWorld = targetArrow.getWorld();
-				//FallingBlock fb = arrowWorld.spawnFallingBlock(targetArrow.getLocation(), Material.TNT, (byte) 0x0);
 				final TNTPrimed tnt = arrowWorld.spawn(targetArrow.getLocation(), TNTPrimed.class);
 				tnt.setVelocity(targetArrow.getVelocity());
 				tnt.setFuseTicks(Integer.MAX_VALUE);
@@ -48,7 +45,7 @@ public class ArrowListener implements Listener {
 					
 					@Override
 					public void run() {
-						if(tnt != null){
+						if(tnt != null && tnt.getFuseTicks() > 0){
 							for(int x = -2; x < 2; x++){
 								for(int z = -2; z < 2; z++){
 									final Location TNTLocation = tnt.getLocation();
